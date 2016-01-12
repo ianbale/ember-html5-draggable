@@ -1,0 +1,72 @@
+<article class="demo">
+  <header>
+    <h2>Ember HTML5 Draggable List</h2>
+  </header>
+
+  <main>
+
+    <table>
+      <tr>
+        <td valign=top>
+
+          <b>Add these to the list on the right by dragging</b>
+      
+          {{#each model.picklist as |item|}}
+            {{#draggable-item tagname="div" model=item handle=".draghandle2"}}
+              {{{item.label}}} {{item.counter}} <span class="draghandle2">&vArr;</span>
+            {{/draggable-item}}
+          {{/each}}
+
+        </td>
+        
+        <td> &nbsp; </td>
+        
+        <td valign=top>
+
+          <b>Sort these by dragging (scrollable)</b>
+
+          <div class="scrolling-container">
+
+          {{#sortable-group tagName="div" model=model.items onChange="update" onInsert="insert" onSortStart="sortstart" onSortEnd="sortend" as |group|}}
+            {{#each model.items as |item|}}
+              {{#sortable-item tagName="div" model=item group=group handle=".draghandle"}}
+                           
+               {{item.label}}
+
+               {{#if item.sorting}}
+                  : you're dragging me!
+               {{/if}} 
+
+               {{#if item.dragged}}
+                  : you've dragged me before
+               {{/if}} 
+
+               {{#if item.inserted}}
+                  : you inserted me
+               {{/if}} 
+
+
+               <span class="draghandle">&vArr;</span>
+
+              {{/sortable-item}}
+            {{/each}}
+          {{/sortable-group}}
+
+          </div>
+
+        </td>
+      </tr>
+    </table> 
+
+    Dragging : {{model.dragItem}}<br>
+    Drop target : {{model.dropTarget}}
+
+  </main>
+
+  <footer>
+    <p>
+      <a href="https://github.com/ianbale/ember-html5-draggable">View on GitHub</a>
+    </p>
+  </footer>
+
+</article>

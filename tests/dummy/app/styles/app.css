@@ -1,0 +1,67 @@
+.drop-target
+{
+  background: #ffffee;
+  border : 1px solid yellow;
+  width : 300px;
+  height : 35px;
+  margin : 5px;
+  padding : 3px;
+  color : #ccc;
+}
+
+.drop-target:before {
+  content: "Drop here";
+}
+
+.draggable-item
+{
+  border : 1px solid green;
+  width : 300px;
+  margin : 5px;
+  height : 35px;
+  background-color: #f8fff8;
+  padding : 3px;
+}
+
+.sortable-item
+{
+  border : 1px solid #ffaaaa;
+  width : 300px;
+  height : 35px;
+  margin : 5px;
+  background-color: #fff8f8;
+  padding : 3px;
+}
+
+.drag-marker
+{
+  border : 1px solid orange;
+}
+
+.scrolling-container
+{
+  height : 500px;
+  overflow : scroll;
+}
+
+.draghandle
+{
+  float : right;
+  font-size : 24px;
+  padding : 4px 10px;
+  background-color: #ffe0e0;
+  margin-top : -3px;
+  margin-right : -3px;
+  border-left : 1px solid #ffaaaa;
+}
+
+.draghandle2
+{
+  float : right;
+  font-size : 24px;
+  padding : 4px 10px;
+  background-color: lightgreen;
+  margin-top : -3px;
+  margin-right : -3px;
+  border-left : 1px solid green;
+}
