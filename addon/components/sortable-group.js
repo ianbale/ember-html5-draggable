@@ -29,7 +29,7 @@ export default Component.extend({
   // sortingXXXX are initiated bu sortable-item
   sortingStart(item)
   {
-    this.sendAction('onSortStart', item);
+    this.sendAction('onSortStart', item.model);
   },
 
   sortingOver(item,position)
@@ -85,8 +85,8 @@ export default Component.extend({
     model.removeObject(item.model);
     model.insertAt(dropPos,item.model);
 
-    this.sendAction('onChange', model, item);
-    this.sendAction('onSortEnd', item, dropTarget);
+    this.sendAction('onChange', model, item.model);
+    this.sendAction('onSortEnd', item.model, dropTarget.model);
   },
 
   sortingAborted(item)
