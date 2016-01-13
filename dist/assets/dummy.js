@@ -48,42 +48,35 @@ define('dummy/ember-html5-draggable/tests/modules/ember-html5-draggable/componen
   QUnit.module('JSHint - modules/ember-html5-draggable/components');
   QUnit.test('modules/ember-html5-draggable/components/draggable-item.js should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'modules/ember-html5-draggable/components/draggable-item.js should pass jshint.');
+    assert.ok(false, 'modules/ember-html5-draggable/components/draggable-item.js should pass jshint.\nmodules/ember-html5-draggable/components/draggable-item.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/draggable-item.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/draggable-item.js: line 3, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/draggable-item.js: line 5, col 1, \'export\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/draggable-item.js: line 5, col 60, \'object short notation\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\n\n5 errors');
   });
 });
 define('dummy/ember-html5-draggable/tests/modules/ember-html5-draggable/components/sortable-group.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint - modules/ember-html5-draggable/components');
   QUnit.test('modules/ember-html5-draggable/components/sortable-group.js should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'modules/ember-html5-draggable/components/sortable-group.js should pass jshint.\nmodules/ember-html5-draggable/components/sortable-group.js: line 122, col 42, \'draggedModel\' used out of scope.\nmodules/ember-html5-draggable/components/sortable-group.js: line 3, col 34, \'get\' is defined but never used.\nmodules/ember-html5-draggable/components/sortable-group.js: line 3, col 34, \'set\' is defined but never used.\nmodules/ember-html5-draggable/components/sortable-group.js: line 3, col 34, \'run\' is defined but never used.\nmodules/ember-html5-draggable/components/sortable-group.js: line 53, col 7, \'$\' is not defined.\nmodules/ember-html5-draggable/components/sortable-group.js: line 54, col 7, \'$\' is not defined.\nmodules/ember-html5-draggable/components/sortable-group.js: line 106, col 11, \'draggedModel\' is defined but never used.\n\n7 errors');
+    assert.ok(false, 'modules/ember-html5-draggable/components/sortable-group.js should pass jshint.\nmodules/ember-html5-draggable/components/sortable-group.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/sortable-group.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/sortable-group.js: line 3, col 1, \'const\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 3, col 1, \'destructuring expression\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 5, col 1, \'export\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/sortable-group.js: line 10, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 19, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 24, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 30, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 35, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 52, col 7, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 65, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 69, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 70, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 72, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 73, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 92, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 100, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 113, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 114, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 115, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/components/sortable-group.js: line 122, col 42, \'draggedModel\' used out of scope.\n\n22 errors');
   });
 });
 define('dummy/ember-html5-draggable/tests/modules/ember-html5-draggable/components/sortable-item.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint - modules/ember-html5-draggable/components');
   QUnit.test('modules/ember-html5-draggable/components/sortable-item.js should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'modules/ember-html5-draggable/components/sortable-item.js should pass jshint.');
+    assert.ok(false, 'modules/ember-html5-draggable/components/sortable-item.js should pass jshint.\nmodules/ember-html5-draggable/components/sortable-item.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/sortable-item.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/sortable-item.js: line 3, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/sortable-item.js: line 5, col 1, \'export\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/components/sortable-item.js: line 6, col 3, \'object short notation\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\n\n5 errors');
   });
 });
 define('dummy/ember-html5-draggable/tests/modules/ember-html5-draggable/mixins/draggable-item.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint - modules/ember-html5-draggable/mixins');
   QUnit.test('modules/ember-html5-draggable/mixins/draggable-item.js should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'modules/ember-html5-draggable/mixins/draggable-item.js should pass jshint.\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 3, col 23, \'run\' is defined but never used.\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 4, col 17, \'Promise\' is defined but never used.\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 2, col 8, \'computed\' is defined but never used.\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 34, col 12, \'event\' is defined but never used.\n\n4 errors');
+    assert.ok(false, 'modules/ember-html5-draggable/mixins/draggable-item.js should pass jshint.\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 3, col 1, \'const\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 3, col 1, \'destructuring expression\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 4, col 1, \'const\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 4, col 1, \'destructuring expression\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 6, col 1, \'export\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 16, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 19, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 27, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/draggable-item.js: line 34, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\n\n11 errors');
   });
 });
 define('dummy/ember-html5-draggable/tests/modules/ember-html5-draggable/mixins/sortable-item.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint - modules/ember-html5-draggable/mixins');
   QUnit.test('modules/ember-html5-draggable/mixins/sortable-item.js should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'modules/ember-html5-draggable/mixins/sortable-item.js should pass jshint.\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 3, col 23, \'run\' is defined but never used.\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 4, col 17, \'Promise\' is defined but never used.\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 5, col 7, \'DROP_TARGET_NONE\' is defined but never used.\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 2, col 8, \'computed\' is defined but never used.\n\n4 errors');
-  });
-});
-define('dummy/ember-html5-draggable/tests/modules/ember-html5-draggable/utils/transitionend.jshint', ['exports'], function (exports) {
-  QUnit.module('JSHint - modules/ember-html5-draggable/utils');
-  QUnit.test('modules/ember-html5-draggable/utils/transitionend.js should pass jshint', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'modules/ember-html5-draggable/utils/transitionend.js should pass jshint.');
+    assert.ok(false, 'modules/ember-html5-draggable/mixins/sortable-item.js should pass jshint.\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 1, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 2, col 1, \'import\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 3, col 1, \'const\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 3, col 1, \'destructuring expression\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 4, col 1, \'const\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 4, col 1, \'destructuring expression\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 5, col 1, \'const\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 7, col 1, \'export\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 16, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 19, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 27, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 35, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 42, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 46, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 47, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 48, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 49, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 54, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 68, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 79, col 3, \'concise methods\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 79, col 22, \'spread/rest operator\' is only available in ES6 (use esnext option).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 80, col 5, \'let\' is available in ES6 (use esnext option) or Mozilla JS extensions (use moz).\nmodules/ember-html5-draggable/mixins/sortable-item.js: line 83, col 21, \'spread/rest operator\' is only available in ES6 (use esnext option).\n\n23 errors');
   });
 });
 define('dummy/initializers/app-version', ['exports', 'ember-cli-app-version/initializer-factory', 'dummy/config/environment'], function (exports, _emberCliAppVersionInitializerFactory, _dummyConfigEnvironment) {
@@ -183,16 +176,16 @@ define('dummy/routes/application', ['exports', 'ember'], function (exports, _emb
       },
 
       sortstart: function sortstart(item) {
-        this.set("currentModel.dragItem", item.model.label);
-        _ember['default'].set(item.model, "sorting", true);
+        this.set("currentModel.dragItem", item.label);
+        _ember['default'].set(item, "sorting", true);
       },
 
       sortend: function sortend(item, dropTarget) {
-        _ember['default'].set(item.model, "sorting", false);
-        _ember['default'].set(item.model, "dragged", true);
+        _ember['default'].set(item, "sorting", false);
+        _ember['default'].set(item, "dragged", true);
 
         if (dropTarget) {
-          this.set("currentModel.dropTarget", dropTarget.model.label);
+          this.set("currentModel.dropTarget", dropTarget.label);
         } else {
           // sort was aborted...
           this.set("currentModel.dropTarget", "aborted!");
@@ -420,7 +413,7 @@ define("dummy/templates/application", ["exports"], function (exports) {
                   "column": 14
                 },
                 "end": {
-                  "line": 51,
+                  "line": 50,
                   "column": 14
                 }
               },
@@ -448,7 +441,7 @@ define("dummy/templates/application", ["exports"], function (exports) {
               dom.appendChild(el0, el1);
               var el1 = dom.createComment("");
               dom.appendChild(el0, el1);
-              var el1 = dom.createTextNode("\n\n               ");
+              var el1 = dom.createTextNode("\n               ");
               dom.appendChild(el0, el1);
               var el1 = dom.createElement("span");
               dom.setAttribute(el1, "class", "draghandle");
@@ -483,7 +476,7 @@ define("dummy/templates/application", ["exports"], function (exports) {
                 "column": 12
               },
               "end": {
-                "line": 52,
+                "line": 51,
                 "column": 12
               }
             },
@@ -506,7 +499,7 @@ define("dummy/templates/application", ["exports"], function (exports) {
             dom.insertBoundary(fragment, null);
             return morphs;
           },
-          statements: [["block", "sortable-item", [], ["tagName", "div", "model", ["subexpr", "@mut", [["get", "item", ["loc", [null, [32, 51], [32, 55]]]]], [], []], "group", ["subexpr", "@mut", [["get", "group", ["loc", [null, [32, 62], [32, 67]]]]], [], []], "handle", ".draghandle"], 0, null, ["loc", [null, [32, 14], [51, 32]]]]],
+          statements: [["block", "sortable-item", [], ["tagName", "div", "model", ["subexpr", "@mut", [["get", "item", ["loc", [null, [32, 51], [32, 55]]]]], [], []], "group", ["subexpr", "@mut", [["get", "group", ["loc", [null, [32, 62], [32, 67]]]]], [], []], "handle", ".draghandle"], 0, null, ["loc", [null, [32, 14], [50, 32]]]]],
           locals: ["item"],
           templates: [child0]
         };
@@ -522,7 +515,7 @@ define("dummy/templates/application", ["exports"], function (exports) {
               "column": 10
             },
             "end": {
-              "line": 53,
+              "line": 52,
               "column": 10
             }
           },
@@ -545,7 +538,503 @@ define("dummy/templates/application", ["exports"], function (exports) {
           dom.insertBoundary(fragment, null);
           return morphs;
         },
-        statements: [["block", "each", [["get", "model.items", ["loc", [null, [31, 20], [31, 31]]]]], [], 0, null, ["loc", [null, [31, 12], [52, 21]]]]],
+        statements: [["block", "each", [["get", "model.items", ["loc", [null, [31, 20], [31, 31]]]]], [], 0, null, ["loc", [null, [31, 12], [51, 21]]]]],
+        locals: ["group"],
+        templates: [child0]
+      };
+    })();
+    var child2 = (function () {
+      var child0 = (function () {
+        var child0 = (function () {
+          return {
+            meta: {
+              "fragmentReason": false,
+              "revision": "Ember@2.2.0",
+              "loc": {
+                "source": null,
+                "start": {
+                  "line": 66,
+                  "column": 10
+                },
+                "end": {
+                  "line": 68,
+                  "column": 10
+                }
+              },
+              "moduleName": "dummy/templates/application.hbs"
+            },
+            isEmpty: false,
+            arity: 0,
+            cachedFragment: null,
+            hasRendered: false,
+            buildFragment: function buildFragment(dom) {
+              var el0 = dom.createDocumentFragment();
+              var el1 = dom.createTextNode("            ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createComment("");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n");
+              dom.appendChild(el0, el1);
+              return el0;
+            },
+            buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+              var morphs = new Array(1);
+              morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+              return morphs;
+            },
+            statements: [["content", "item.label", ["loc", [null, [67, 12], [67, 26]]]]],
+            locals: [],
+            templates: []
+          };
+        })();
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.2.0",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 65,
+                "column": 8
+              },
+              "end": {
+                "line": 69,
+                "column": 8
+              }
+            },
+            "moduleName": "dummy/templates/application.hbs"
+          },
+          isEmpty: false,
+          arity: 1,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createComment("");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+            var morphs = new Array(1);
+            morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+            dom.insertBoundary(fragment, 0);
+            dom.insertBoundary(fragment, null);
+            return morphs;
+          },
+          statements: [["block", "sortable-item", [], ["tagName", "li", "model", ["subexpr", "@mut", [["get", "item", ["loc", [null, [66, 46], [66, 50]]]]], [], []], "group", ["subexpr", "@mut", [["get", "group", ["loc", [null, [66, 57], [66, 62]]]]], [], []]], 0, null, ["loc", [null, [66, 10], [68, 28]]]]],
+          locals: ["item"],
+          templates: [child0]
+        };
+      })();
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.2.0",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 64,
+              "column": 6
+            },
+            "end": {
+              "line": 70,
+              "column": 6
+            }
+          },
+          "moduleName": "dummy/templates/application.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [["block", "each", [["get", "model.items", ["loc", [null, [65, 16], [65, 27]]]]], [], 0, null, ["loc", [null, [65, 8], [69, 17]]]]],
+        locals: ["group"],
+        templates: [child0]
+      };
+    })();
+    var child3 = (function () {
+      var child0 = (function () {
+        var child0 = (function () {
+          var child0 = (function () {
+            return {
+              meta: {
+                "fragmentReason": false,
+                "revision": "Ember@2.2.0",
+                "loc": {
+                  "source": null,
+                  "start": {
+                    "line": 90,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 90,
+                    "column": 40
+                  }
+                },
+                "moduleName": "dummy/templates/application.hbs"
+              },
+              isEmpty: false,
+              arity: 0,
+              cachedFragment: null,
+              hasRendered: false,
+              buildFragment: function buildFragment(dom) {
+                var el0 = dom.createDocumentFragment();
+                var el1 = dom.createTextNode("YES");
+                dom.appendChild(el0, el1);
+                return el0;
+              },
+              buildRenderNodes: function buildRenderNodes() {
+                return [];
+              },
+              statements: [],
+              locals: [],
+              templates: []
+            };
+          })();
+          var child1 = (function () {
+            return {
+              meta: {
+                "fragmentReason": false,
+                "revision": "Ember@2.2.0",
+                "loc": {
+                  "source": null,
+                  "start": {
+                    "line": 90,
+                    "column": 40
+                  },
+                  "end": {
+                    "line": 90,
+                    "column": 50
+                  }
+                },
+                "moduleName": "dummy/templates/application.hbs"
+              },
+              isEmpty: false,
+              arity: 0,
+              cachedFragment: null,
+              hasRendered: false,
+              buildFragment: function buildFragment(dom) {
+                var el0 = dom.createDocumentFragment();
+                var el1 = dom.createTextNode("no");
+                dom.appendChild(el0, el1);
+                return el0;
+              },
+              buildRenderNodes: function buildRenderNodes() {
+                return [];
+              },
+              statements: [],
+              locals: [],
+              templates: []
+            };
+          })();
+          var child2 = (function () {
+            return {
+              meta: {
+                "fragmentReason": false,
+                "revision": "Ember@2.2.0",
+                "loc": {
+                  "source": null,
+                  "start": {
+                    "line": 91,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 91,
+                    "column": 40
+                  }
+                },
+                "moduleName": "dummy/templates/application.hbs"
+              },
+              isEmpty: false,
+              arity: 0,
+              cachedFragment: null,
+              hasRendered: false,
+              buildFragment: function buildFragment(dom) {
+                var el0 = dom.createDocumentFragment();
+                var el1 = dom.createTextNode("YES");
+                dom.appendChild(el0, el1);
+                return el0;
+              },
+              buildRenderNodes: function buildRenderNodes() {
+                return [];
+              },
+              statements: [],
+              locals: [],
+              templates: []
+            };
+          })();
+          var child3 = (function () {
+            return {
+              meta: {
+                "fragmentReason": false,
+                "revision": "Ember@2.2.0",
+                "loc": {
+                  "source": null,
+                  "start": {
+                    "line": 91,
+                    "column": 40
+                  },
+                  "end": {
+                    "line": 91,
+                    "column": 50
+                  }
+                },
+                "moduleName": "dummy/templates/application.hbs"
+              },
+              isEmpty: false,
+              arity: 0,
+              cachedFragment: null,
+              hasRendered: false,
+              buildFragment: function buildFragment(dom) {
+                var el0 = dom.createDocumentFragment();
+                var el1 = dom.createTextNode("no");
+                dom.appendChild(el0, el1);
+                return el0;
+              },
+              buildRenderNodes: function buildRenderNodes() {
+                return [];
+              },
+              statements: [],
+              locals: [],
+              templates: []
+            };
+          })();
+          var child4 = (function () {
+            return {
+              meta: {
+                "fragmentReason": false,
+                "revision": "Ember@2.2.0",
+                "loc": {
+                  "source": null,
+                  "start": {
+                    "line": 92,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 92,
+                    "column": 41
+                  }
+                },
+                "moduleName": "dummy/templates/application.hbs"
+              },
+              isEmpty: false,
+              arity: 0,
+              cachedFragment: null,
+              hasRendered: false,
+              buildFragment: function buildFragment(dom) {
+                var el0 = dom.createDocumentFragment();
+                var el1 = dom.createTextNode("YES");
+                dom.appendChild(el0, el1);
+                return el0;
+              },
+              buildRenderNodes: function buildRenderNodes() {
+                return [];
+              },
+              statements: [],
+              locals: [],
+              templates: []
+            };
+          })();
+          var child5 = (function () {
+            return {
+              meta: {
+                "fragmentReason": false,
+                "revision": "Ember@2.2.0",
+                "loc": {
+                  "source": null,
+                  "start": {
+                    "line": 92,
+                    "column": 41
+                  },
+                  "end": {
+                    "line": 92,
+                    "column": 51
+                  }
+                },
+                "moduleName": "dummy/templates/application.hbs"
+              },
+              isEmpty: false,
+              arity: 0,
+              cachedFragment: null,
+              hasRendered: false,
+              buildFragment: function buildFragment(dom) {
+                var el0 = dom.createDocumentFragment();
+                var el1 = dom.createTextNode("no");
+                dom.appendChild(el0, el1);
+                return el0;
+              },
+              buildRenderNodes: function buildRenderNodes() {
+                return [];
+              },
+              statements: [],
+              locals: [],
+              templates: []
+            };
+          })();
+          return {
+            meta: {
+              "fragmentReason": false,
+              "revision": "Ember@2.2.0",
+              "loc": {
+                "source": null,
+                "start": {
+                  "line": 86,
+                  "column": 12
+                },
+                "end": {
+                  "line": 96,
+                  "column": 12
+                }
+              },
+              "moduleName": "dummy/templates/application.hbs"
+            },
+            isEmpty: false,
+            arity: 0,
+            cachedFragment: null,
+            hasRendered: false,
+            buildFragment: function buildFragment(dom) {
+              var el0 = dom.createDocumentFragment();
+              var el1 = dom.createTextNode("                         \n             ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createElement("td");
+              var el2 = dom.createComment("");
+              dom.appendChild(el1, el2);
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n\n             ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createElement("td");
+              var el2 = dom.createComment("");
+              dom.appendChild(el1, el2);
+              var el2 = dom.createTextNode(" ");
+              dom.appendChild(el1, el2);
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n             ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createElement("td");
+              var el2 = dom.createComment("");
+              dom.appendChild(el1, el2);
+              var el2 = dom.createTextNode(" ");
+              dom.appendChild(el1, el2);
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n             ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createElement("td");
+              var el2 = dom.createComment("");
+              dom.appendChild(el1, el2);
+              var el2 = dom.createTextNode(" ");
+              dom.appendChild(el1, el2);
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n\n             ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createElement("td");
+              dom.setAttribute(el1, "class", "draghandle");
+              var el2 = dom.createTextNode("⇕");
+              dom.appendChild(el1, el2);
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n\n");
+              dom.appendChild(el0, el1);
+              return el0;
+            },
+            buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+              var morphs = new Array(4);
+              morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
+              morphs[1] = dom.createMorphAt(dom.childAt(fragment, [3]), 0, 0);
+              morphs[2] = dom.createMorphAt(dom.childAt(fragment, [5]), 0, 0);
+              morphs[3] = dom.createMorphAt(dom.childAt(fragment, [7]), 0, 0);
+              return morphs;
+            },
+            statements: [["content", "item.label", ["loc", [null, [88, 17], [88, 31]]]], ["block", "if", [["get", "item.sorting", ["loc", [null, [90, 23], [90, 35]]]]], [], 0, 1, ["loc", [null, [90, 17], [90, 57]]]], ["block", "if", [["get", "item.dragged", ["loc", [null, [91, 23], [91, 35]]]]], [], 2, 3, ["loc", [null, [91, 17], [91, 57]]]], ["block", "if", [["get", "item.inserted", ["loc", [null, [92, 23], [92, 36]]]]], [], 4, 5, ["loc", [null, [92, 17], [92, 58]]]]],
+            locals: [],
+            templates: [child0, child1, child2, child3, child4, child5]
+          };
+        })();
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.2.0",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 85,
+                "column": 10
+              },
+              "end": {
+                "line": 97,
+                "column": 10
+              }
+            },
+            "moduleName": "dummy/templates/application.hbs"
+          },
+          isEmpty: false,
+          arity: 1,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createComment("");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+            var morphs = new Array(1);
+            morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+            dom.insertBoundary(fragment, 0);
+            dom.insertBoundary(fragment, null);
+            return morphs;
+          },
+          statements: [["block", "sortable-item", [], ["tagName", "tr", "model", ["subexpr", "@mut", [["get", "item", ["loc", [null, [86, 48], [86, 52]]]]], [], []], "group", ["subexpr", "@mut", [["get", "group", ["loc", [null, [86, 59], [86, 64]]]]], [], []], "handle", ".draghandle"], 0, null, ["loc", [null, [86, 12], [96, 30]]]]],
+          locals: ["item"],
+          templates: [child0]
+        };
+      })();
+      return {
+        meta: {
+          "fragmentReason": false,
+          "revision": "Ember@2.2.0",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 84,
+              "column": 8
+            },
+            "end": {
+              "line": 98,
+              "column": 8
+            }
+          },
+          "moduleName": "dummy/templates/application.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var morphs = new Array(1);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          dom.insertBoundary(fragment, 0);
+          dom.insertBoundary(fragment, null);
+          return morphs;
+        },
+        statements: [["block", "each", [["get", "model.items", ["loc", [null, [85, 18], [85, 29]]]]], [], 0, null, ["loc", [null, [85, 10], [97, 19]]]]],
         locals: ["group"],
         templates: [child0]
       };
@@ -563,7 +1052,7 @@ define("dummy/templates/application", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 73,
+            "line": 111,
             "column": 0
           }
         },
@@ -661,6 +1150,69 @@ define("dummy/templates/application", ["exports"], function (exports) {
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("div");
+        dom.setAttribute(el3, "class", "horizontal-demo");
+        var el4 = dom.createTextNode("\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("      ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n\n    ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("table");
+        var el4 = dom.createTextNode("\n      ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("thead");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("tr");
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("td");
+        var el7 = dom.createTextNode("Label");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("td");
+        var el7 = dom.createTextNode("Dragging");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("td");
+        var el7 = dom.createTextNode("Dragged");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("td");
+        var el7 = dom.createTextNode("Inserted");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n          ");
+        dom.appendChild(el5, el6);
+        var el6 = dom.createElement("td");
+        var el7 = dom.createTextNode(" ");
+        dom.appendChild(el6, el7);
+        dom.appendChild(el5, el6);
+        var el6 = dom.createTextNode("\n        ");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n      ");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n    ");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
@@ -693,16 +1245,18 @@ define("dummy/templates/application", ["exports"], function (exports) {
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [0, 3]);
         var element1 = dom.childAt(element0, [1, 1]);
-        var morphs = new Array(4);
+        var morphs = new Array(6);
         morphs[0] = dom.createMorphAt(dom.childAt(element1, [1]), 3, 3);
         morphs[1] = dom.createMorphAt(dom.childAt(element1, [5, 3]), 1, 1);
         morphs[2] = dom.createMorphAt(element0, 3, 3);
         morphs[3] = dom.createMorphAt(element0, 6, 6);
+        morphs[4] = dom.createMorphAt(dom.childAt(element0, [8]), 1, 1);
+        morphs[5] = dom.createMorphAt(dom.childAt(element0, [10]), 3, 3);
         return morphs;
       },
-      statements: [["block", "each", [["get", "model.picklist", ["loc", [null, [14, 18], [14, 32]]]]], [], 0, null, ["loc", [null, [14, 10], [18, 19]]]], ["block", "sortable-group", [], ["tagName", "div", "model", ["subexpr", "@mut", [["get", "model.items", ["loc", [null, [30, 48], [30, 59]]]]], [], []], "onChange", "update", "onInsert", "insert", "onSortStart", "sortstart", "onSortEnd", "sortend"], 1, null, ["loc", [null, [30, 10], [53, 29]]]], ["content", "model.dragItem", ["loc", [null, [61, 15], [61, 33]]]], ["content", "model.dropTarget", ["loc", [null, [62, 18], [62, 38]]]]],
+      statements: [["block", "each", [["get", "model.picklist", ["loc", [null, [14, 18], [14, 32]]]]], [], 0, null, ["loc", [null, [14, 10], [18, 19]]]], ["block", "sortable-group", [], ["tagName", "div", "model", ["subexpr", "@mut", [["get", "model.items", ["loc", [null, [30, 48], [30, 59]]]]], [], []], "onChange", "update", "onInsert", "insert", "onSortStart", "sortstart", "onSortEnd", "sortend"], 1, null, ["loc", [null, [30, 10], [52, 29]]]], ["content", "model.dragItem", ["loc", [null, [60, 15], [60, 33]]]], ["content", "model.dropTarget", ["loc", [null, [61, 18], [61, 38]]]], ["block", "sortable-group", [], ["tagName", "ol", "model", ["subexpr", "@mut", [["get", "model.items", ["loc", [null, [64, 43], [64, 54]]]]], [], []], "onChange", "update", "onInsert", "insert", "onSortStart", "sortstart", "onSortEnd", "sortend"], 2, null, ["loc", [null, [64, 6], [70, 25]]]], ["block", "sortable-group", [], ["tagName", "tbody", "model", ["subexpr", "@mut", [["get", "model.items", ["loc", [null, [84, 48], [84, 59]]]]], [], []], "onChange", "update", "onInsert", "insert", "onSortStart", "sortstart", "onSortEnd", "sortend"], 3, null, ["loc", [null, [84, 8], [98, 27]]]]],
       locals: [],
-      templates: [child0, child1]
+      templates: [child0, child1, child2, child3]
     };
   })());
 });
@@ -732,7 +1286,7 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("dummy/app")["default"].create({"name":"ember-html5-draggable","version":"1.0.0+f41765fd"});
+  require("dummy/app")["default"].create({"name":"ember-html5-draggable","version":"1.0.0+c695ace6"});
 }
 
 /* jshint ignore:end */

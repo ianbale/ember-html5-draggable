@@ -43,18 +43,18 @@ export default Ember.Route.extend({
 
     sortstart (item)
     {
-      this.set("currentModel.dragItem",item.model.label);
-      Ember.set(item.model,"sorting",true);
+      this.set("currentModel.dragItem",item.label);
+      Ember.set(item,"sorting",true);
     },
 
     sortend (item,dropTarget)
     {
-      Ember.set(item.model,"sorting",false);
-      Ember.set(item.model,"dragged",true);
+      Ember.set(item,"sorting",false);
+      Ember.set(item,"dragged",true);
 
       if (dropTarget)
       {
-        this.set("currentModel.dropTarget",dropTarget.model.label);
+        this.set("currentModel.dropTarget",dropTarget.label);
       }
       else
       {

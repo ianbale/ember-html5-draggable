@@ -103,7 +103,7 @@ export default Component.extend({
 
     try
     {
-      var draggedModel  = JSON.parse(event.dataTransfer.getData("model"));
+      var draggedModel  = JSON.parse(event.dataTransfer.getData("text"));
     }
     catch(e)
     {

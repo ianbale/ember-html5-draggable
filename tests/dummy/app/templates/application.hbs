@@ -45,7 +45,6 @@
                   : you inserted me
                {{/if}} 
 
-
                <span class="draghandle">&vArr;</span>
 
               {{/sortable-item}}
@@ -60,6 +59,45 @@
 
     Dragging : {{model.dragItem}}<br>
     Drop target : {{model.dropTarget}}
+
+    <div class="horizontal-demo">
+      {{#sortable-group tagName="ol" model=model.items onChange="update" onInsert="insert" onSortStart="sortstart" onSortEnd="sortend" as |group|}}
+        {{#each model.items as |item|}}
+          {{#sortable-item tagName="li" model=item group=group}}
+            {{item.label}}
+          {{/sortable-item}}
+        {{/each}}
+      {{/sortable-group}}
+      </div>
+
+    <table>
+      <thead>
+        <tr>
+          <td>Label</td>
+          <td>Dragging</td>
+          <td>Dragged</td>
+          <td>Inserted</td>
+          <td>&nbsp;</td>
+        </tr>
+      </thead>
+
+        {{#sortable-group tagName="tbody" model=model.items onChange="update" onInsert="insert" onSortStart="sortstart" onSortEnd="sortend" as |group|}}
+          {{#each model.items as |item|}}
+            {{#sortable-item tagName="tr" model=item group=group handle=".draghandle"}}
+                         
+             <td>{{item.label}}</td>
+
+             <td>{{#if item.sorting}}YES{{else}}no{{/if}} </td>
+             <td>{{#if item.dragged}}YES{{else}}no{{/if}} </td>
+             <td>{{#if item.inserted}}YES{{else}}no{{/if}} </td>
+
+             <td class="draghandle">&vArr;</td>
+
+            {{/sortable-item}}
+          {{/each}}
+        {{/sortable-group}}
+
+    </table>
 
   </main>
 

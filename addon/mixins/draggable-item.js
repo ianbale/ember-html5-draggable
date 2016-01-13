@@ -26,7 +26,7 @@ export default Mixin.create({
 
   dragStart (event)
   {
-    event.dataTransfer.setData('model', JSON.stringify(this.model));
+    event.dataTransfer.setData('text', JSON.stringify(this.model));
     event.dataTransfer.effectAllowed = "copy";
   },
 

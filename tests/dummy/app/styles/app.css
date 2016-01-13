@@ -65,3 +65,24 @@
   margin-right : -3px;
   border-left : 1px solid green;
 }
+
+
+.horizontal-demo .sortable-item {
+  display: inline-block;
+  position: relative;
+  cursor: move;
+  width : 100px;
+  background-color: hsl(197, 100%, 45%);
+  margin: 0 4px;
+}
+
+.horizontal-demo .drop-target
+{
+  background: #ffffee;
+  border : 1px solid yellow;
+  width : 100px;
+  height : 35px;
+  margin : 5px;
+  padding : 3px;
+  color : #ccc;
+}

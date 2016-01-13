@@ -65837,7 +65837,7 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
 
     // sortingXXXX are initiated bu sortable-item
     sortingStart: function sortingStart(item) {
-      this.sendAction('onSortStart', item);
+      this.sendAction('onSortStart', item.model);
     },
 
     sortingOver: function sortingOver(item, position) {
@@ -65889,8 +65889,8 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
       model.removeObject(item.model);
       model.insertAt(dropPos, item.model);
 
-      this.sendAction('onChange', model, item);
-      this.sendAction('onSortEnd', item, dropTarget);
+      this.sendAction('onChange', model, item.model);
+      this.sendAction('onSortEnd', item.model, dropTarget.model);
     },
 
     sortingAborted: function sortingAborted(item) {
@@ -66195,32 +66195,6 @@ define("ember-html5-draggable/templates/components/sortable-item", ["exports"], 
       templates: []
     };
   })());
-});
-define('ember-html5-draggable/utils/transitionend', ['exports'], function (exports) {
-  // Thanks to http://davidwalsh.name/css-animation-callback
-
-  'use strict';
-
-  function whichTransitionEvent() {
-    var t;
-    var el = document.createElement('fake-element');
-    var transitions = {
-      'transition': 'transitionend',
-      'OTransition': 'oTransitionEnd',
-      'MozTransition': 'transitionend',
-      'WebkitTransition': 'webkitTransitionEnd'
-    };
-
-    for (t in transitions) {
-      if (el.style[t] !== undefined) {
-        return transitions[t];
-      }
-    }
-  }
-
-  var transitionend = whichTransitionEvent();
-
-  exports['default'] = transitionend;
 });
 define('ember-new-computed/index', ['exports', 'ember', 'ember-new-computed/utils/can-use-new-syntax'], function (exports, _ember, _emberNewComputedUtilsCanUseNewSyntax) {
   'use strict';
