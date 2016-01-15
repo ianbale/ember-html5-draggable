@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/components/sortable-group';
+import computed from 'ember-new-computed';
 const { Component, get, set, run } = Ember;
 
 export default Component.extend({
@@ -9,6 +10,7 @@ export default Component.extend({
   updateInterval : 1,
   scrollRegionSize : 60,
   direction : 'y',
+  scrollContainer : null,
 
   init()
   {
@@ -16,16 +18,21 @@ export default Component.extend({
     
     this._droptarget = document.createElement("div");
     this._droptarget.className = "drop-target";
+
+    Ember.run.scheduleOnce('afterRender',this,function()
+    {
+      this.set("scrollElement",this.scrollContainer ? this.scrollContainer : $(this.element).parent());
+    });
   },
 
   getContainerCoords()
   {
     if (!this._container_coords)
     {
-      let top     = $(this.element).parent().offset().top;
-      let bottom  = $(this.element).parent().height() + top;
-      let left    = $(this.element).parent().offset().left;
-      let right   = $(this.element).parent().width() + left;
+      let top     = $(this.scrollElement).offset().top;
+      let bottom  = $(this.scrollElement).height() + top;
+      let left    = $(this.scrollElement).offset().left;
+      let right   = $(this.scrollElement).width() + left;
 
       this.set("_container_coords",{t:top,b:bottom,l:left,r:right});
     }
@@ -104,14 +111,14 @@ export default Component.extend({
   {
     if (this.direction === 'x')
     {  
-      let newScrollPos = $(this.element).parent().scrollLeft() + distance;
-      $(this.element).parent().scrollLeft(newScrollPos);    
+      let newScrollPos = $(this.scrollElement).scrollLeft() + distance;
+      $(this.scrollElement).scrollLeft(newScrollPos);    
     }
 
     if (this.direction === 'y')
     {      
-      let newScrollPos = $(this.element).parent().scrollTop() + distance;      
-      $(this.element).parent().scrollTop(newScrollPos);
+      let newScrollPos = $(this.scrollElement).scrollTop() + distance;      
+      $(this.scrollElement).scrollTop(newScrollPos);
     }
 
   },

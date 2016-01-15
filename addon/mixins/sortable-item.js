@@ -52,9 +52,7 @@ export default Mixin.create({
   {
     event.preventDefault();
 
-Ember.Logger.log("drop target height",event.target.offsetHeight)
-
-    let height          = event.target.offsetHeight / 2;
+    let height          = $(event.target).closest('.sortable-item').height() / 2;
     let containerOffset = this.$().offset();
     let cursorPosition  = event.originalEvent.pageY - containerOffset.top;
     let position        = cursorPosition < height ? "above" : "below";

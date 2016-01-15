@@ -65806,7 +65806,7 @@ define('ember-html5-draggable/components/draggable-item', ['exports', 'ember', '
 
   exports['default'] = _ember['default'].Component.extend(_emberHtml5DraggableMixinsDraggableItem['default'], { layout: _emberHtml5DraggableTemplatesComponentsDraggableItem['default'] });
 });
-define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', 'ember-html5-draggable/templates/components/sortable-group'], function (exports, _ember, _emberHtml5DraggableTemplatesComponentsSortableGroup) {
+define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', 'ember-html5-draggable/templates/components/sortable-group', 'ember-new-computed'], function (exports, _ember, _emberHtml5DraggableTemplatesComponentsSortableGroup, _emberNewComputed) {
   'use strict';
 
   var Component = _ember['default'].Component;
@@ -65821,20 +65821,25 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
     updateInterval: 1,
     scrollRegionSize: 60,
     direction: 'y',
+    scrollContainer: null,
 
     init: function init() {
       this._super();
 
       this._droptarget = document.createElement("div");
       this._droptarget.className = "drop-target";
+
+      _ember['default'].run.scheduleOnce('afterRender', this, function () {
+        this.set("scrollElement", this.scrollContainer ? this.scrollContainer : $(this.element).parent());
+      });
     },
 
     getContainerCoords: function getContainerCoords() {
       if (!this._container_coords) {
-        var _top = $(this.element).parent().offset().top;
-        var bottom = $(this.element).parent().height() + _top;
-        var left = $(this.element).parent().offset().left;
-        var right = $(this.element).parent().width() + left;
+        var _top = $(this.scrollElement).offset().top;
+        var bottom = $(this.scrollElement).height() + _top;
+        var left = $(this.scrollElement).offset().left;
+        var right = $(this.scrollElement).width() + left;
 
         this.set("_container_coords", { t: _top, b: bottom, l: left, r: right });
       }
@@ -65886,13 +65891,13 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
 
     scrollViewport: function scrollViewport(distance) {
       if (this.direction === 'x') {
-        var newScrollPos = $(this.element).parent().scrollLeft() + distance;
-        $(this.element).parent().scrollLeft(newScrollPos);
+        var newScrollPos = $(this.scrollElement).scrollLeft() + distance;
+        $(this.scrollElement).scrollLeft(newScrollPos);
       }
 
       if (this.direction === 'y') {
-        var newScrollPos = $(this.element).parent().scrollTop() + distance;
-        $(this.element).parent().scrollTop(newScrollPos);
+        var newScrollPos = $(this.scrollElement).scrollTop() + distance;
+        $(this.scrollElement).scrollTop(newScrollPos);
       }
     },
 
