@@ -65816,14 +65816,84 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
 
   exports['default'] = Component.extend({
     layout: _emberHtml5DraggableTemplatesComponentsSortableGroup['default'],
-
+    classNames: ['draggable-group'],
     dropTarget: null,
+    updateInterval: 1,
+    scrollRegionSize: 60,
+    direction: 'y',
 
     init: function init() {
       this._super();
 
       this._droptarget = document.createElement("div");
       this._droptarget.className = "drop-target";
+    },
+
+    getContainerCoords: function getContainerCoords() {
+      if (!this._container_coords) {
+        var _top = $(this.element).parent().offset().top;
+        var bottom = $(this.element).parent().height() + _top;
+        var left = $(this.element).parent().offset().left;
+        var right = $(this.element).parent().width() + left;
+
+        this.set("_container_coords", { t: _top, b: bottom, l: left, r: right });
+      }
+
+      return this._container_coords;
+    },
+
+    // Three speed scrolling!
+    checkifScrollNeeded: function checkifScrollNeeded(event) {
+      var coords = this.getContainerCoords();
+      var scrollRegionSize = this.scrollRegionSize;
+
+      if (this.direction === 'x') {
+        var mouseX = event.originalEvent.pageX;
+
+        if (mouseX > coords.t && mouseX < coords.t + scrollRegionSize / 3) {
+          this.scrollViewport(-15);
+        } else if (mouseX > coords.l && mouseX < coords.l + scrollRegionSize * 2 / 3) {
+          this.scrollViewport(-10);
+        } else if (mouseX > coords.l && mouseX < coords.l + scrollRegionSize) {
+          this.scrollViewport(-5);
+        } else if (mouseX > coords.r - scrollRegionSize / 3 && mouseX < coords.r) {
+          this.scrollViewport(15);
+        } else if (mouseX > coords.r - scrollRegionSize * 2 / 3 && mouseX < coords.r) {
+          this.scrollViewport(10);
+        } else if (mouseX > coords.r - scrollRegionSize && mouseX < coords.r) {
+          this.scrollViewport(5);
+        }
+      }
+
+      if (this.direction === 'y') {
+        var mouseY = event.originalEvent.pageY;
+
+        if (mouseY > coords.t && mouseY < coords.t + scrollRegionSize / 3) {
+          this.scrollViewport(-15);
+        } else if (mouseY > coords.t && mouseY < coords.t + scrollRegionSize * 2 / 3) {
+          this.scrollViewport(-10);
+        } else if (mouseY > coords.t && mouseY < coords.t + scrollRegionSize) {
+          this.scrollViewport(-5);
+        } else if (mouseY > coords.b - scrollRegionSize / 3 && mouseY < coords.b) {
+          this.scrollViewport(15);
+        } else if (mouseY > coords.b - scrollRegionSize * 2 / 3 && mouseY < coords.b) {
+          this.scrollViewport(10);
+        } else if (mouseY > coords.b - scrollRegionSize && mouseY < coords.b) {
+          this.scrollViewport(5);
+        }
+      }
+    },
+
+    scrollViewport: function scrollViewport(distance) {
+      if (this.direction === 'x') {
+        var newScrollPos = $(this.element).parent().scrollLeft() + distance;
+        $(this.element).parent().scrollLeft(newScrollPos);
+      }
+
+      if (this.direction === 'y') {
+        var newScrollPos = $(this.element).parent().scrollTop() + distance;
+        $(this.element).parent().scrollTop(newScrollPos);
+      }
     },
 
     // dragEnter / dragOver must be overridden in order to get the drop event fired when dropping on the drop target (require for insert item)
@@ -65833,9 +65903,10 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
 
     dragOver: function dragOver(event) {
       event.preventDefault();
+      run.throttle(this, 'checkifScrollNeeded', event, this.updateInterval);
     },
 
-    // sortingXXXX are initiated bu sortable-item
+    // sortingXXXX functions are initiated bu sortable-item
     sortingStart: function sortingStart(item) {
       this.sendAction('onSortStart', item.model);
     },
@@ -65903,7 +65974,7 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
       this.element.removeChild(this._droptarget);
 
       try {
-        var draggedModel = JSON.parse(event.dataTransfer.getData("model"));
+        var draggedModel = JSON.parse(event.dataTransfer.getData("text"));
       } catch (e) {
         return; // Not a valid item to drop on the list...
       }
@@ -65956,7 +66027,7 @@ define('ember-html5-draggable/mixins/draggable-item', ['exports', 'ember', 'embe
     },
 
     dragStart: function dragStart(event) {
-      event.dataTransfer.setData('model', JSON.stringify(this.model));
+      event.dataTransfer.setData('text', JSON.stringify(this.model));
       event.dataTransfer.effectAllowed = "copy";
     },
 
@@ -65985,19 +66056,27 @@ define('ember-html5-draggable/mixins/sortable-item', ['exports', 'ember', 'ember
     group: null,
     model: null,
     handle: null,
+    mouseDownEventTarget: null,
 
     mouseDown: function mouseDown(event) {
-      // If we are using a drag handle, then ignore drag if not initiated by the handle
-      var handle = this.get('handle');
-
-      if (handle && !$(event.target).closest(handle).length) {
-        event.preventDefault();
-      }
+      this.set("mouseDownEventTarget", event.target);
     },
 
     dragStart: function dragStart(event) {
+      // If we are using a drag handle, then ignore drag if not initiated by the handle
+      var handle = this.get('handle');
+
+      if (handle && !$(this.mouseDownEventTarget).closest(handle).length) {
+        event.preventDefault();
+        return;
+      }
+
+      if (navigator.appVersion.indexOf("MSIE ") != -1) {
+        this.element.style.display = "none";
+      }
+
       event.dataTransfer.effectAllowed = 'move';
-      event.dataTransfer.setData("text/html", event.currentTarget); // Required for this to work properly in Firefox
+      event.dataTransfer.setData("text", "dummy"); // Required for this to work properly in Firefox
 
       this._tellGroup("sortingStart", this);
 
@@ -66010,6 +66089,8 @@ define('ember-html5-draggable/mixins/sortable-item', ['exports', 'ember', 'ember
 
     dragOver: function dragOver(event) {
       event.preventDefault();
+
+      _ember['default'].Logger.log("drop target height", event.target.offsetHeight);
 
       var height = event.target.offsetHeight / 2;
       var containerOffset = this.$().offset();

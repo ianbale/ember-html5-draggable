@@ -4,8 +4,11 @@ const { Component, get, set, run } = Ember;
 
 export default Component.extend({
   layout: layout,
-
+  classNames: ['draggable-group'],
   dropTarget :null,
+  updateInterval : 1,
+  scrollRegionSize : 60,
+  direction : 'y',
 
   init()
   {
@@ -13,6 +16,104 @@ export default Component.extend({
     
     this._droptarget = document.createElement("div");
     this._droptarget.className = "drop-target";
+  },
+
+  getContainerCoords()
+  {
+    if (!this._container_coords)
+    {
+      let top     = $(this.element).parent().offset().top;
+      let bottom  = $(this.element).parent().height() + top;
+      let left    = $(this.element).parent().offset().left;
+      let right   = $(this.element).parent().width() + left;
+
+      this.set("_container_coords",{t:top,b:bottom,l:left,r:right});
+    }
+
+    return this._container_coords;
+  },
+
+  // Three speed scrolling!
+  checkifScrollNeeded(event)
+  {
+    let coords = this.getContainerCoords();
+    let scrollRegionSize = this.scrollRegionSize;
+
+    if (this.direction === 'x')
+    {
+      let mouseX = event.originalEvent.pageX;
+      
+      if (mouseX > coords.t && mouseX < coords.t + (scrollRegionSize/3))
+      {
+        this.scrollViewport(-15);
+      }
+      else if (mouseX > coords.l && mouseX < coords.l + (scrollRegionSize * 2/3))
+      {
+        this.scrollViewport(-10);
+      }
+      else if (mouseX > coords.l && mouseX < coords.l + scrollRegionSize)
+      {
+        this.scrollViewport(-5);
+      }
+      else if (mouseX > coords.r - (scrollRegionSize/3) && mouseX < coords.r)
+      {
+        this.scrollViewport(15);
+      }
+      else if (mouseX > coords.r - (scrollRegionSize * 2/3) && mouseX < coords.r)
+      {
+        this.scrollViewport(10);
+      }
+      else if (mouseX > coords.r - scrollRegionSize && mouseX < coords.r)
+      {
+        this.scrollViewport(5);
+      }
+    }
+
+    if (this.direction === 'y')
+    {
+      let mouseY = event.originalEvent.pageY;
+      
+      if (mouseY > coords.t && mouseY < coords.t + (scrollRegionSize/3))
+      {
+        this.scrollViewport(-15);
+      }
+      else if (mouseY > coords.t && mouseY < coords.t + (scrollRegionSize * 2/3))
+      {
+        this.scrollViewport(-10);
+      }
+      else if (mouseY > coords.t && mouseY < coords.t + scrollRegionSize)
+      {
+        this.scrollViewport(-5);
+      }
+      else if (mouseY > coords.b - (scrollRegionSize/3) && mouseY < coords.b)
+      {
+        this.scrollViewport(15);
+      }
+      else if (mouseY > coords.b - (scrollRegionSize * 2/3) && mouseY < coords.b)
+      {
+        this.scrollViewport(10);
+      }
+      else if (mouseY > coords.b - scrollRegionSize && mouseY < coords.b)
+      {
+        this.scrollViewport(5);
+      }
+    }
+  },
+
+  scrollViewport(distance)
+  {
+    if (this.direction === 'x')
+    {  
+      let newScrollPos = $(this.element).parent().scrollLeft() + distance;
+      $(this.element).parent().scrollLeft(newScrollPos);    
+    }
+
+    if (this.direction === 'y')
+    {      
+      let newScrollPos = $(this.element).parent().scrollTop() + distance;      
+      $(this.element).parent().scrollTop(newScrollPos);
+    }
+
   },
 
   // dragEnter / dragOver must be overridden in order to get the drop event fired when dropping on the drop target (require for insert item)
@@ -24,9 +125,10 @@ export default Component.extend({
   dragOver(event)
   {
     event.preventDefault();
+    run.throttle(this, 'checkifScrollNeeded', event, this.updateInterval);
   },
 
-  // sortingXXXX are initiated bu sortable-item
+  // sortingXXXX functions are initiated bu sortable-item
   sortingStart(item)
   {
     this.sendAction('onSortStart', item.model);

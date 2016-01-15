@@ -31,7 +31,7 @@
             {{#each model.items as |item|}}
               {{#sortable-item tagName="div" model=item group=group handle=".draghandle"}}
                            
-               {{item.label}}
+               {{{item.label}}}
 
                {{#if item.sorting}}
                   : you're dragging me!

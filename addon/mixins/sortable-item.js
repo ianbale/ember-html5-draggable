@@ -12,22 +12,31 @@ export default Mixin.create({
   group: null,
   model: null,
   handle: null,
+  mouseDownEventTarget: null,
 
   mouseDown(event)
   {
-    // If we are using a drag handle, then ignore drag if not initiated by the handle
-    let handle = this.get('handle');
-
-    if (handle && !$(event.target).closest(handle).length)
-    {
-      event.preventDefault();
-    }
+    this.set("mouseDownEventTarget",event.target);
   },
 
   dragStart(event)
   {
+    // If we are using a drag handle, then ignore drag if not initiated by the handle
+    let handle = this.get('handle');
+
+    if (handle && !$(this.mouseDownEventTarget).closest(handle).length)
+    {
+      event.preventDefault();
+      return;
+    }
+
+    if(navigator.appVersion.indexOf("MSIE ")!= -1)
+    {
+      this.element.style.display = "none";
+    }
+
     event.dataTransfer.effectAllowed = 'move';
-    event.dataTransfer.setData("text/html", event.currentTarget); // Required for this to work properly in Firefox
+    event.dataTransfer.setData("text", "dummy"); // Required for this to work properly in Firefox
 
     this._tellGroup("sortingStart",this);
 
@@ -43,6 +52,8 @@ export default Mixin.create({
   {
     event.preventDefault();
 
+Ember.Logger.log("drop target height",event.target.offsetHeight)
+
     let height          = event.target.offsetHeight / 2;
     let containerOffset = this.$().offset();
     let cursorPosition  = event.originalEvent.pageY - containerOffset.top;
@@ -53,7 +64,7 @@ export default Mixin.create({
 
   dragEnd(event)
   {
-    this.element.style.display = ""; // Remove the display:none
+    this.element.style.display = "";  // Remove the display:none
 
     if(event.dataTransfer.effectAllowed === "none") // We aborted the drag by leaving the sort list
     {

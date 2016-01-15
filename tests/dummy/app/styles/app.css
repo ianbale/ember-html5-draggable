@@ -36,6 +36,7 @@
 .drag-marker
 {
   border : 1px solid orange;
+  background-color: white !important;
 }
 
 .scrolling-container
