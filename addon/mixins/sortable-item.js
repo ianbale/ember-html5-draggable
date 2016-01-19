@@ -8,7 +8,7 @@ export default Mixin.create({
   classNames: ['sortable-item'],
   attributeBindings: ['draggable'],
 
-  draggable : true,
+  draggable : false,
   group: null,
   model: null,
   handle: null,
@@ -17,6 +17,15 @@ export default Mixin.create({
   mouseDown(event)
   {
     this.set("mouseDownEventTarget",event.target);
+
+  if (!$(event.target).parents().hasClass('question-container'))
+  {
+    $('.sortable-item').attr('draggable', true);
+  }
+  else
+  {
+    $('.sortable-item').attr('draggable', false);
+  }
   },
 
   dragStart(event)
@@ -26,38 +35,55 @@ export default Mixin.create({
 
     if (handle && !$(this.mouseDownEventTarget).closest(handle).length)
     {
-      event.preventDefault();
       return;
     }
 
-    if(navigator.appVersion.indexOf("MSIE ")!= -1)
+    var defer = Ember.RSVP.defer();
+
+    let _this = this;
+
+    if(navigator.appName === "Netscape")
     {
-      this.element.style.display = "none";
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData("text", ""); // Required for this to work properly in Firefox
+    }
+    else
+    {
+      defer.promise.then(function()
+      {
+        if(navigator.appVersion.indexOf("MSIE ") !== -1)
+        {
+          _this.element.style.display = "none";
+        }
+
+        event.dataTransfer.effectAllowed = 'move';
+
+        // Delay here so that clone of drag item is made before we hide the original item
+      }); 
     }
 
-    event.dataTransfer.effectAllowed = 'move';
-    event.dataTransfer.setData("text", "dummy"); // Required for this to work properly in Firefox
-
-    this._tellGroup("sortingStart",this);
-
-    // Delay here so that clone of drag item is made before we hide the original item
-    let _this = this;
     Ember.run.next(function()
     {
       _this.element.style.display = "none";
     });
+
+    this._tellGroup("sortingStart",this,defer);
   },
 
   dragOver(event)
   {
     event.preventDefault();
 
-    let height          = $(event.target).closest('.sortable-item').height() / 2;
-    let containerOffset = this.$().offset();
-    let cursorPosition  = event.originalEvent.pageY - containerOffset.top;
-    let position        = cursorPosition < height ? "above" : "below";
+    run.throttle(this, function()
+    {
+      let height          = $(event.target).closest('.sortable-item').height() / 2;
+      let containerOffset = this.$().offset();
+      let cursorPosition  = event.originalEvent.pageY - containerOffset.top;
+      let position        = cursorPosition < height ? "above" : "below";
 
-    this._tellGroup("sortingOver",this,position);
+      this._tellGroup("sortingOver",this,position);
+    }, 125);
+
   },
 
   dragEnd(event)
@@ -77,6 +103,7 @@ export default Mixin.create({
   drop(event)
   {
     event.preventDefault();
+    event.stopPropagation();
 
     // We ony want to handle drop for inserting new items. dragEnd will cope with moves
     if(event.dataTransfer.effectAllowed === "copy")

@@ -8,24 +8,27 @@ export default Mixin.create({
   attributeBindings: ['draggable'],
   draggable : true,
   handle : null,
-
+  mouseDownEventTarget: null,
   // Setup our data transfer object
   // We send a model defining the item we wish to insert
   // And we set effectAllowed to copy to indicate an insert rather than a move
 
-  mouseDown (event)
+  mouseDown(event)
+  {
+    this.set("mouseDownEventTarget",event.target);
+  },
+
+  dragStart(event)
   {
     // If we are using a drag handle, then ignore drag if not initiated by the handle
     let handle = this.get('handle');
 
-    if (handle && !$(event.target).closest(handle).length)
+    if (handle && !$(this.mouseDownEventTarget).closest(handle).length)
     {
       event.preventDefault();
+      return;
     }
-  },
 
-  dragStart (event)
-  {
     event.dataTransfer.setData('text', JSON.stringify(this.model));
     event.dataTransfer.effectAllowed = "copy";
   },

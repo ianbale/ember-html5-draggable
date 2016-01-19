@@ -65818,10 +65818,12 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
     layout: _emberHtml5DraggableTemplatesComponentsSortableGroup['default'],
     classNames: ['draggable-group'],
     dropTarget: null,
-    updateInterval: 1,
+    updateInterval: 125,
     scrollRegionSize: 60,
     direction: 'y',
     scrollContainer: null,
+    scrollIntervalTimer: null,
+    scrollAmount: 0,
 
     init: function init() {
       this._super();
@@ -65856,17 +65858,19 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
         var mouseX = event.originalEvent.pageX;
 
         if (mouseX > coords.t && mouseX < coords.t + scrollRegionSize / 3) {
-          this.scrollViewport(-15);
+          return -15;
         } else if (mouseX > coords.l && mouseX < coords.l + scrollRegionSize * 2 / 3) {
-          this.scrollViewport(-10);
+          return -10;
         } else if (mouseX > coords.l && mouseX < coords.l + scrollRegionSize) {
-          this.scrollViewport(-5);
+          return -5;
         } else if (mouseX > coords.r - scrollRegionSize / 3 && mouseX < coords.r) {
-          this.scrollViewport(15);
+          return 15;
         } else if (mouseX > coords.r - scrollRegionSize * 2 / 3 && mouseX < coords.r) {
-          this.scrollViewport(10);
+          return 10;
         } else if (mouseX > coords.r - scrollRegionSize && mouseX < coords.r) {
-          this.scrollViewport(5);
+          return 5;
+        } else {
+          return 0;
         }
       }
 
@@ -65874,22 +65878,26 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
         var mouseY = event.originalEvent.pageY;
 
         if (mouseY > coords.t && mouseY < coords.t + scrollRegionSize / 3) {
-          this.scrollViewport(-15);
+          return -15;
         } else if (mouseY > coords.t && mouseY < coords.t + scrollRegionSize * 2 / 3) {
-          this.scrollViewport(-10);
+          return -10;
         } else if (mouseY > coords.t && mouseY < coords.t + scrollRegionSize) {
-          this.scrollViewport(-5);
+          return -5;
         } else if (mouseY > coords.b - scrollRegionSize / 3 && mouseY < coords.b) {
-          this.scrollViewport(15);
+          return 15;
         } else if (mouseY > coords.b - scrollRegionSize * 2 / 3 && mouseY < coords.b) {
-          this.scrollViewport(10);
+          return 10;
         } else if (mouseY > coords.b - scrollRegionSize && mouseY < coords.b) {
-          this.scrollViewport(5);
+          return 5;
+        } else {
+          return 0;
         }
       }
     },
 
-    scrollViewport: function scrollViewport(distance) {
+    scrollViewport: function scrollViewport() {
+      var distance = this.get("scrollAmount");
+
       if (this.direction === 'x') {
         var newScrollPos = $(this.scrollElement).scrollLeft() + distance;
         $(this.scrollElement).scrollLeft(newScrollPos);
@@ -65908,12 +65916,44 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
 
     dragOver: function dragOver(event) {
       event.preventDefault();
-      run.throttle(this, 'checkifScrollNeeded', event, this.updateInterval);
+      this.scrollHandler(event);
+    },
+
+    scrollHandler: function scrollHandler(event) {
+      var newScrollAmount = this.checkifScrollNeeded(event);
+
+      if (event.dataTransfer.effectAllowed === "move") {
+        if (newScrollAmount) {
+          if (newScrollAmount !== this.get("scrollAmount")) {
+            this.set("scrollAmount", newScrollAmount);
+
+            var intervalInstance = this.get("scrollIntervalTimer");
+            if (!intervalInstance) {
+              this.set("scrollIntervalTimer", setInterval(this.scrollViewport.bind(this), 25));
+            }
+          }
+        } else {
+          // Don't initiate a setInterval for "copy" since we cannot detect drag end...
+          this.stopScrollHandler();
+        }
+      } else {
+        this.set("scrollAmount", newScrollAmount);
+        this.scrollViewport();
+      }
+    },
+
+    stopScrollHandler: function stopScrollHandler() {
+      var intervalInstance = this.get("scrollIntervalTimer");
+
+      if (intervalInstance) {
+        clearInterval(intervalInstance);
+        this.set("scrollIntervalTimer", null);
+      }
     },
 
     // sortingXXXX functions are initiated bu sortable-item
-    sortingStart: function sortingStart(item) {
-      this.sendAction('onSortStart', item.model);
+    sortingStart: function sortingStart(item, defer) {
+      this.sendAction('onSortStart', item.model, defer);
     },
 
     sortingOver: function sortingOver(item, position) {
@@ -65946,13 +65986,12 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
     },
 
     sortingEnd: function sortingEnd(item) {
-      this.element.removeChild(this._droptarget);
-
       var model = this.get("model");
       var dropTarget = this.get("dropTarget");
-
       var startPos = model.indexOf(item.model);
       var dropPos = model.indexOf(dropTarget.model);
+
+      this.stopScrollHandler();
 
       if (dropPos > startPos) {
         dropPos--;
@@ -65962,20 +66001,28 @@ define('ember-html5-draggable/components/sortable-group', ['exports', 'ember', '
         dropPos++;
       }
 
-      model.removeObject(item.model);
-      model.insertAt(dropPos, item.model);
+      try {
+        this.element.removeChild(this._droptarget);
 
-      this.sendAction('onChange', model, item.model);
+        model.removeObject(item.model);
+        model.insertAt(dropPos, item.model);
+
+        this.sendAction('onChange', model, item.model);
+      } catch (e) {} // Ignore. Occurs if we started a drag, but never moved in a direction which generated our first drop-target
+
       this.sendAction('onSortEnd', item.model, dropTarget.model);
     },
 
     sortingAborted: function sortingAborted(item) {
       this.element.removeChild(this._droptarget);
+      this.stopScrollHandler();
       this.sendAction('onSortEnd', item.model);
     },
 
     // Used for inserting new items into the list
     insertItem: function insertItem(event) {
+      this.stopScrollHandler();
+
       this.element.removeChild(this._droptarget);
 
       try {
@@ -66017,21 +66064,24 @@ define('ember-html5-draggable/mixins/draggable-item', ['exports', 'ember', 'embe
     attributeBindings: ['draggable'],
     draggable: true,
     handle: null,
-
+    mouseDownEventTarget: null,
     // Setup our data transfer object
     // We send a model defining the item we wish to insert
     // And we set effectAllowed to copy to indicate an insert rather than a move
 
     mouseDown: function mouseDown(event) {
-      // If we are using a drag handle, then ignore drag if not initiated by the handle
-      var handle = this.get('handle');
-
-      if (handle && !$(event.target).closest(handle).length) {
-        event.preventDefault();
-      }
+      this.set("mouseDownEventTarget", event.target);
     },
 
     dragStart: function dragStart(event) {
+      // If we are using a drag handle, then ignore drag if not initiated by the handle
+      var handle = this.get('handle');
+
+      if (handle && !$(this.mouseDownEventTarget).closest(handle).length) {
+        event.preventDefault();
+        return;
+      }
+
       event.dataTransfer.setData('text', JSON.stringify(this.model));
       event.dataTransfer.effectAllowed = "copy";
     },
@@ -66076,33 +66126,43 @@ define('ember-html5-draggable/mixins/sortable-item', ['exports', 'ember', 'ember
         return;
       }
 
-      if (navigator.appVersion.indexOf("MSIE ") != -1) {
-        this.element.style.display = "none";
-      }
+      var defer = _ember['default'].RSVP.defer();
 
-      event.dataTransfer.effectAllowed = 'move';
-      event.dataTransfer.setData("text", "dummy"); // Required for this to work properly in Firefox
-
-      this._tellGroup("sortingStart", this);
-
-      // Delay here so that clone of drag item is made before we hide the original item
       var _this = this;
+
+      if (navigator.appName === "Netscape") {
+        event.dataTransfer.effectAllowed = 'move';
+        event.dataTransfer.setData("text", ""); // Required for this to work properly in Firefox
+      } else {
+          defer.promise.then(function () {
+            if (navigator.appVersion.indexOf("MSIE ") !== -1) {
+              _this.element.style.display = "none";
+            }
+
+            event.dataTransfer.effectAllowed = 'move';
+
+            // Delay here so that clone of drag item is made before we hide the original item
+          });
+        }
+
       _ember['default'].run.next(function () {
         _this.element.style.display = "none";
       });
+
+      this._tellGroup("sortingStart", this, defer);
     },
 
     dragOver: function dragOver(event) {
       event.preventDefault();
 
-      _ember['default'].Logger.log("drop target height", event.target.offsetHeight);
+      run.throttle(this, function () {
+        var height = $(event.target).closest('.sortable-item').height() / 2;
+        var containerOffset = this.$().offset();
+        var cursorPosition = event.originalEvent.pageY - containerOffset.top;
+        var position = cursorPosition < height ? "above" : "below";
 
-      var height = event.target.offsetHeight / 2;
-      var containerOffset = this.$().offset();
-      var cursorPosition = event.originalEvent.pageY - containerOffset.top;
-      var position = cursorPosition < height ? "above" : "below";
-
-      this._tellGroup("sortingOver", this, position);
+        this._tellGroup("sortingOver", this, position);
+      }, 125);
     },
 
     dragEnd: function dragEnd(event) {
@@ -66118,6 +66178,7 @@ define('ember-html5-draggable/mixins/sortable-item', ['exports', 'ember', 'ember
 
     drop: function drop(event) {
       event.preventDefault();
+      event.stopPropagation();
 
       // We ony want to handle drop for inserting new items. dragEnd will cope with moves
       if (event.dataTransfer.effectAllowed === "copy") {

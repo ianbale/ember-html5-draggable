@@ -7,10 +7,11 @@ export default Component.extend({
   layout: layout,
   classNames: ['draggable-group'],
   dropTarget :null,
-  updateInterval : 1,
   scrollRegionSize : 60,
   direction : 'y',
   scrollContainer : null,
+  scrollIntervalTimer : null,
+  scrollAmount : 0,
 
   init()
   {
@@ -47,68 +48,78 @@ export default Component.extend({
     let scrollRegionSize = this.scrollRegionSize;
 
     if (this.direction === 'x')
-    {
+    { 
       let mouseX = event.originalEvent.pageX;
-      
+
       if (mouseX > coords.t && mouseX < coords.t + (scrollRegionSize/3))
       {
-        this.scrollViewport(-15);
+        return -15;
       }
       else if (mouseX > coords.l && mouseX < coords.l + (scrollRegionSize * 2/3))
       {
-        this.scrollViewport(-10);
+        return -10;
       }
       else if (mouseX > coords.l && mouseX < coords.l + scrollRegionSize)
       {
-        this.scrollViewport(-5);
+        return -5;
       }
       else if (mouseX > coords.r - (scrollRegionSize/3) && mouseX < coords.r)
       {
-        this.scrollViewport(15);
+        return 15;
       }
       else if (mouseX > coords.r - (scrollRegionSize * 2/3) && mouseX < coords.r)
       {
-        this.scrollViewport(10);
+        return 10;
       }
       else if (mouseX > coords.r - scrollRegionSize && mouseX < coords.r)
       {
-        this.scrollViewport(5);
+        return 5;
+      }
+      else
+      {
+        return 0;
       }
     }
 
     if (this.direction === 'y')
-    {
+    {      
       let mouseY = event.originalEvent.pageY;
-      
+
       if (mouseY > coords.t && mouseY < coords.t + (scrollRegionSize/3))
       {
-        this.scrollViewport(-15);
+        return -15;
       }
       else if (mouseY > coords.t && mouseY < coords.t + (scrollRegionSize * 2/3))
       {
-        this.scrollViewport(-10);
+        return -10;
       }
       else if (mouseY > coords.t && mouseY < coords.t + scrollRegionSize)
       {
-        this.scrollViewport(-5);
+        return -5;
       }
       else if (mouseY > coords.b - (scrollRegionSize/3) && mouseY < coords.b)
       {
-        this.scrollViewport(15);
+        return 15;
       }
       else if (mouseY > coords.b - (scrollRegionSize * 2/3) && mouseY < coords.b)
       {
-        this.scrollViewport(10);
+        return 10;
       }
       else if (mouseY > coords.b - scrollRegionSize && mouseY < coords.b)
       {
-        this.scrollViewport(5);
+        return 5;
+      }
+      else
+      {
+        return 0;
       }
     }
   },
 
-  scrollViewport(distance)
+  scrollViewport()
   {
+    let distance = this.get("scrollAmount");
+
     if (this.direction === 'x')
     {  
       let newScrollPos = $(this.scrollElement).scrollLeft() + distance;
@@ -132,13 +143,56 @@ export default Component.extend({
   dragOver(event)
   {
     event.preventDefault();
-    run.throttle(this, 'checkifScrollNeeded', event, this.updateInterval);
+    this.scrollHandler(event);
+  },
+
+  scrollHandler(event)
+  {
+    let newScrollAmount = this.checkifScrollNeeded(event);
+
+    if (event.dataTransfer.effectAllowed === "move")
+    {
+      if (newScrollAmount)
+      {
+        if (newScrollAmount !== this.get("scrollAmount"))
+        {
+          this.set("scrollAmount",newScrollAmount);
+
+          let intervalInstance = this.get("scrollIntervalTimer");
+          if (!intervalInstance)
+          {
+            this.set("scrollIntervalTimer",setInterval(this.scrollViewport.bind(this),25)); 
+          }
+        }
+      }
+      else
+      {
+        // Don't initiate a setInterval for "copy" since we cannot detect drag end...
+        this.stopScrollHandler();
+      }
+    }
+    else
+    {
+      this.set("scrollAmount",newScrollAmount);
+      this.scrollViewport();
+    }
+  },
+
+  stopScrollHandler()
+  {
+    let intervalInstance = this.get("scrollIntervalTimer");
+
+    if (intervalInstance)
+    {
+      clearInterval(intervalInstance);
+      this.set("scrollIntervalTimer",null);
+    }
   },
 
   // sortingXXXX functions are initiated bu sortable-item
-  sortingStart(item)
+  sortingStart(item,defer)
   {
-    this.sendAction('onSortStart', item.model);
+    this.sendAction('onSortStart', item.model, defer);      
   },
 
   sortingOver(item,position)
@@ -173,13 +227,12 @@ export default Component.extend({
 
   sortingEnd(item)
   {
-    this.element.removeChild(this._droptarget);
-
     let model       = this.get("model");
     let dropTarget  = this.get("dropTarget");
-
     let startPos    = model.indexOf(item.model);
     let dropPos     = model.indexOf(dropTarget.model);
+
+    this.stopScrollHandler();
 
     if (dropPos > startPos)
     {
@@ -191,16 +244,25 @@ export default Component.extend({
       dropPos++;
     }
 
-    model.removeObject(item.model);
-    model.insertAt(dropPos,item.model);
+    try
+    {
+      this.element.removeChild(this._droptarget);   
 
-    this.sendAction('onChange', model, item.model);
-    this.sendAction('onSortEnd', item.model, dropTarget.model);
+        model.removeObject(item.model);
+        model.insertAt(dropPos,item.model);
+
+        this.sendAction('onChange', model, item.model);
+    }
+    catch (e)
+    {} // Ignore. Occurs if we started a drag, but never moved in a direction which generated our first drop-target
+
+    this.sendAction('onSortEnd', item.model, dropTarget.model);       
   },
 
   sortingAborted(item)
   {
     this.element.removeChild(this._droptarget);
+    this.stopScrollHandler();
     this.sendAction('onSortEnd', item.model);
   },
 
@@ -208,6 +270,8 @@ export default Component.extend({
   // Used for inserting new items into the list
   insertItem(event)
   {
+    this.stopScrollHandler();
+    
     this.element.removeChild(this._droptarget);
 
     try
