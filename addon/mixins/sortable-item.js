@@ -6,38 +6,26 @@ const DROP_TARGET_NONE = "none";
 
 export default Mixin.create({
   classNames: ['sortable-item'],
-  attributeBindings: ['draggable'],
-
-  draggable : false,
   group: null,
   model: null,
   handle: null,
-  mouseDownEventTarget: null,
 
   mouseDown(event)
   {
-    this.set("mouseDownEventTarget",event.target);
-
-  if (!$(event.target).parents().hasClass('question-container'))
+  let handle = this.get('handle');
+  
+  if(!handle || $(event.target).closest(handle).length)
   {
     $('.sortable-item').attr('draggable', true);
   }
   else
   {
     $('.sortable-item').attr('draggable', false);
-  }
+  }   
   },
 
   dragStart(event)
   {
-    // If we are using a drag handle, then ignore drag if not initiated by the handle
-    let handle = this.get('handle');
-
-    if (handle && !$(this.mouseDownEventTarget).closest(handle).length)
-    {
-      return;
-    }
-
     var defer = Ember.RSVP.defer();
 
     let _this = this;
