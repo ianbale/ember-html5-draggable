@@ -12,6 +12,7 @@ export default Component.extend({
   scrollContainer : null,
   scrollIntervalTimer : null,
   scrollAmount : 0,
+  scrolling : false,
 
   init()
   {
@@ -118,20 +119,26 @@ export default Component.extend({
 
   scrollViewport()
   {
-    let distance = this.get("scrollAmount");
+  if (!this.scrolling)
+  {
+    this.set("scrolling",true);
+    
+      let distance = this.get("scrollAmount");
 
-    if (this.direction === 'x')
-    {  
-      let newScrollPos = $(this.scrollElement).scrollLeft() + distance;
-      $(this.scrollElement).scrollLeft(newScrollPos);    
-    }
+      if (this.direction === 'x')
+      {  
+        let newScrollPos = $(this.scrollElement).scrollLeft() + distance;
+        $(this.scrollElement).scrollLeft(newScrollPos);    
+      }
 
-    if (this.direction === 'y')
-    {      
-      let newScrollPos = $(this.scrollElement).scrollTop() + distance;      
-      $(this.scrollElement).scrollTop(newScrollPos);
-    }
-
+      if (this.direction === 'y')
+      {      
+        let newScrollPos = $(this.scrollElement).scrollTop() + distance;      
+        $(this.scrollElement).scrollTop(newScrollPos);
+      }
+    
+    this.set("scrolling",false);
+  }
   },
 
   // dragEnter / dragOver must be overridden in order to get the drop event fired when dropping on the drop target (require for insert item)
@@ -161,7 +168,7 @@ export default Component.extend({
           let intervalInstance = this.get("scrollIntervalTimer");
           if (!intervalInstance)
           {
-            this.set("scrollIntervalTimer",setInterval(this.scrollViewport.bind(this),25)); 
+            this.set("scrollIntervalTimer",setInterval(this.scrollViewport.bind(this),10)); 
           }
         }
       }

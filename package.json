@@ -1,6 +1,6 @@
 {
   "name": "ember-html5-draggable",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Sortable/Draggable UI primitives for Ember using HTML5 dragging",
   "directories": {
     "doc": "doc",
