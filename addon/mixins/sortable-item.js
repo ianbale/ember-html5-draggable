@@ -14,7 +14,9 @@ export default Mixin.create({
   {
   let handle = this.get('handle');
   
-  if(!handle || $(event.target).closest(handle).length)
+  let nodeType = $(event.target).context.nodeName;
+
+  if((!handle || $(event.target).closest(handle).length) && nodeType !== "INPUT" & nodeType !== "BUTTON")
   {
     $('.sortable-item').attr('draggable', true);
   }

@@ -217,6 +217,15 @@ export default Component.extend({
         this.element.insertBefore(this._droptarget, item.element);
       }
 
+    if (this.validDropTargets[item.model.uniqueid][position])
+    {
+      $(this._droptarget).removeClass("disabled");
+    }
+    else
+    {
+      $(this._droptarget).addClass("disabled");
+    }
+
       // Re-add our drop event handler. Not sure why, but it gets removed as a result of processing an insert...
       // Easier / quicker to just remove and add than to check if it already exists...
       let _this = this;
@@ -255,11 +264,14 @@ export default Component.extend({
     {
       this.element.removeChild(this._droptarget);   
 
-        model.removeObject(item.model);
-        model.insertAt(dropPos,item.model);
+    if (this.validDropTargets[dropTarget.model.uniqueid][this._dropTargetPlacement])
+    {
+          model.removeObject(item.model);
+          model.insertAt(dropPos,item.model);
 
-        this.sendAction('onChange', model, item.model);
-    }
+      this.sendAction('onChange', model, item.model);
+      }
+  }
     catch (e)
     {} // Ignore. Occurs if we started a drag, but never moved in a direction which generated our first drop-target
 
