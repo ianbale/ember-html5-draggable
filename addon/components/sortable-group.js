@@ -217,14 +217,20 @@ export default Component.extend({
         this.element.insertBefore(this._droptarget, item.element);
       }
 
-    if (this.validDropTargets[item.model.uniqueid][position])
-    {
-      $(this._droptarget).removeClass("disabled");
-    }
-    else
-    {
-      $(this._droptarget).addClass("disabled");
-    }
+      if (this.validDropTargets)
+      {
+        if(this.validDropTargets[item.model.uniqueid])
+        {
+          if (this.validDropTargets[item.model.uniqueid][position])
+          {
+            $(this._droptarget).removeClass("disabled");
+          }
+          else
+          {
+            $(this._droptarget).addClass("disabled");
+          }       
+        }        
+      }
 
       // Re-add our drop event handler. Not sure why, but it gets removed as a result of processing an insert...
       // Easier / quicker to just remove and add than to check if it already exists...
@@ -264,12 +270,22 @@ export default Component.extend({
     {
       this.element.removeChild(this._droptarget);   
 
-    if (this.validDropTargets[dropTarget.model.uniqueid][this._dropTargetPlacement])
-    {
-          model.removeObject(item.model);
-          model.insertAt(dropPos,item.model);
+      if (this.validDropTargets && this.validDropTargets[item.model.uniqueid])
+      {
+          if (this.validDropTargets[item.model.uniqueid][position])
+          {
+            model.removeObject(item.model);
+            model.insertAt(dropPos,item.model);
 
-      this.sendAction('onChange', model, item.model);
+            this.sendAction('onChange', model, item.model);
+          }      
+      }
+      else
+      {
+            model.removeObject(item.model);
+            model.insertAt(dropPos,item.model);
+
+            this.sendAction('onChange', model, item.model);     
       }
   }
     catch (e)
